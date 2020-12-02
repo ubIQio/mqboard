@@ -18,8 +18,8 @@ log = logging.getLogger("main")  # will remain in global namespace
 log.warning("\n\n")
 _uname = os.uname()
 log.warning("MicroPython %s (%s)", _uname.release, _uname.version)
-log.warning(_uname.machine)
-_u = str(board.mqtt.get("user", "esp32"))
+#log.warning(_uname.machine)
+_u = str(board.mqtt.get("user", board.kind))
 log.warning("%s %s starting at %s\n", _u, str(board.location), time.localtime())
 del _u
 del _uname
@@ -78,7 +78,7 @@ def main():  # function keeps global namespace clean
                 context["future"],
             )
         def lm():
-            log.info("MEM free=%d contig=%d", gc.mem_free(), gc.mem_maxfree())
+            log.info("MEM free=%d", gc.mem_free())
 
         loop.set_exception_handler(def_exception_handler)
         lm()
