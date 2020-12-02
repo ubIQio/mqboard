@@ -3,16 +3,12 @@ MQBOARD -- CLI Tool for MicroPython MQTT Repl
 
 This directory contains command-line tools to control MicroPython boards remotely.
 
-To use these commands it is really helpful to set the `MQBOARD_SERVER` environment
-variable to the address of the MQTT broker, and often to also set the
-`MQBOARD_PREFIX` environment variable for the board being worked on (although it's easy
-to forget that and then later run a command on the wrong board!).
+To use these commands it is really helpful to set the `MQBOARD_SERVER` environment variable to the address of the MQTT broker, and often to also set the `MQBOARD_PREFIX` environment variable for the board being worked on (although it's easy to forget that and then later run a command on the wrong board!).
 
 mqboard
 -------
 
-`mqboard` can manipulate files on a remote board's internal filesystem, run python commands,
-view logs, and perform an OTA upgrade of micropython.
+`mqboard` can manipulate files on a remote board's internal filesystem, run python commands,view logs, and perform an OTA upgrade of micropython.
 Please use `mqboard --help` for documentation on the commands and options.
 The current set of commands is:
 ```
