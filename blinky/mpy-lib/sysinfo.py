@@ -23,10 +23,9 @@ async def info_sender(mqclient, topic, interval):
                 _upticks += time.ticks_diff(t, _lastticks)
             _lastticks = t
             # compose json message with data
-            msg = '{"up":%d,"free":%d,"cont_free":%d,"mqtt_conn":%d}' % (
+            msg = '{"up":%d,"free":%d,"mqtt_conn":%d}' % (
                 _upticks // 1000,
                 f,
-                mf,
                 _mqttconn,
             )
             log.info(msg)
