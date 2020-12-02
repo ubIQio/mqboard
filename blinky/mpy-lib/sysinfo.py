@@ -16,7 +16,6 @@ async def info_sender(mqclient, topic, interval):
         try:
             gc.collect()
             f = gc.mem_free()
-            mf = gc.mem_maxfree()
             t = time.ticks_ms()
             if _upticks is None:
                 _upticks = t  # we hope it hasn't rolled-over yet...
