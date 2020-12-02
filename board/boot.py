@@ -38,7 +38,10 @@ if safemode:
     sys.path[:] = ["/safemode", ""]
     os.chdir("/safemode")  # required to get main.py from /safemode, sigh
 # print("safestate:", _safestate, "safemode:", safemode, "cwd:", os.getcwd())
-
+else:
+    os.chdir("/")
+    sys.path[:] = ["", "/lib"]
+    
 # watchdog
 #
 # The watchdog implementation is split into two parts: here the timer is armed and it's the problem
