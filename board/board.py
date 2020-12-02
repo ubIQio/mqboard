@@ -18,16 +18,40 @@ bat_fct = 2  # voltage divider factor
 
 def define_led():
     global act_led, fail_led, bat_volt_pin, bat_fct
-    if kind == "tve-bare":
-        # bare esp32-wroom module with LED across IO23 and gnd
-        lpin = machine.Pin(23, machine.Pin.OUT, None, value=0)
-        led = lambda v: lpin(v)
-        act_led, fail_led = (led, led)
+    if kind == "iDAQ":
+        bat_volt_pin = machine.ADC(machine.Pin(32))
+        bat_volt_pin.atten(machine.ADC.ATTN_11DB)
+        import neopixel
+        np = neopixel.NeoPixel(machine.Pin(2), 1) # Just one neopixel, on IO02
+        color = [64, 0, 0]
+        np[0] = color
+        np.write()
+
+        def set_red(v):
+            color[0] = 64 if v else 0
+            np[0] = color
+            np.write()
+
+        def set_blue(v):
+            color[2] = 64 if v else 0
+            np[0] = color
+            np.write()
+
+        def set_green(v):
+            color[1] = 64 if v else 0
+            np[0] = color
+            np.write()
+
+        fail_led = set_red
+        act_led = set_blue
+        mqtt_led = set_green
+
     elif kind == "huzzah32":
         # Adafruit Huzzah32 feather
         lpin = machine.Pin(13, machine.Pin.OUT, None, value=0)
         led = lambda v: lpin(v)
         fail_led = led
+
     elif kind == "lolin-d32":
         # Wemos Lolin D-32
         lpin = machine.Pin(5, machine.Pin.OUT, None, value=1)
@@ -35,61 +59,6 @@ def define_led():
         bat_volt_pin = machine.ADC(machine.Pin(35))
         bat_volt_pin.atten(machine.ADC.ATTN_11DB)
         act_led, fail_led = (led, led)
-    elif kind == "nodemcu":
-        # NodeMCU
-        lpin = machine.Pin(2, machine.Pin.OUT, None, value=0)
-        led = lambda v: lpin(v)
-        act_led, fail_led = (led, led)
-    elif kind == "esp32thing":
-        # Sparkfun ESP32 Thing
-        lpin = machine.Pin(5, machine.Pin.OUT, None, value=0)
-        led = lambda v: lpin(v)
-        act_led, fail_led = (led, led)
-    elif kind == "ezsbc":
-        # EzSBC
-        lpin1 = machine.Pin(19, machine.Pin.OUT, None, value=1)
-        act_led = lambda v: lpin1(not v)
-        lpin2 = machine.Pin(16, machine.Pin.OUT, None, value=1)
-        fail_led = lambda v: lpin2(not v)
-    elif kind == "tinypico":
-        # TinyPICO has an RGB LED so we use the red channel for WiFi and the blue
-        # channel for message rx
-        from machine import SPI, Pin
-        import tinypico as TinyPICO
-        from dotstar import DotStar
-
-        spi = SPI(
-            sck=Pin(TinyPICO.DOTSTAR_CLK),
-            mosi=Pin(TinyPICO.DOTSTAR_DATA),
-            miso=Pin(TinyPICO.SPI_MISO),
-        )
-        dotstar = DotStar(spi, 1, brightness=0.5)  # Just one DotStar, half brightness
-        TinyPICO.set_dotstar_power(True)
-
-        color = [255, 0, 0]
-
-        def set_red(v):
-            color[0] = 255 if v else 0
-            dotstar[0] = color
-
-        def set_blue(v):
-            color[2] = 255 if v else 0
-            dotstar[0] = color
-
-        fail_led = set_red
-        act_led = set_blue
-    elif kind == "pybd":
-        from pyb import LED
-
-        def led(n, v):
-            if v:
-                LED(n).on()
-            else:
-                LED(n).off()
-
-        act_led = lambda v: led(3, v)
-        fail_led = lambda v: led(1, v)
-
 
 define_led()
 del define_led  # GC the function
