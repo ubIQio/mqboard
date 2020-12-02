@@ -6,7 +6,7 @@ import base64, random, struct, time
 import click
 import paho.mqtt.client as paho
 
-BUFLEN = 1400  # "optimal" buffer size to make mqtt message fit into TCP segment
+BUFLEN = 2400  # "optimal" buffer size to make mqtt message fit into TCP segment
 
 
 def ticks():
