@@ -97,7 +97,7 @@ over MQTT, but we need to bootstrap first.
 1. Wipe the esp32's filesystem clean (you don't need this if you just did a flash erase and
    loaded the firmware):
 ```
-    $ /home/src/esp32/micropython/tools/pyboard.py board/rm_rf.py
+    $ ~/github/tve-micropython/tools/pyboard.py board/rm_rf.py
     rmdir contents: /
     rm //boot.py
     rm //main.py
@@ -112,7 +112,7 @@ environment, e.g.:
 
 3. Load the files (adjust the path to the tools dir and the device name):
 ```
-    $ PATH=/home/src/esp32/micropython/tools:$PATH PYBOARD_DEVICE=/dev/ttyUSB0 ./load.sh
+    $ PATH=~/github/tve-micropython/tools:$PATH PYBOARD_DEVICE=/dev/ttyUSB0 ./load.sh
     device: /dev/ttyUSB0
     cp ./board/boot.py :boot.py
     mkdir :/safemode

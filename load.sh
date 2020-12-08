@@ -1,6 +1,6 @@
 #! /bin/bash -e
 DIR=$(dirname $0)
-echo device: ${PYBOARD_DEVICE:-/dev/ttyACM0}
+echo device: ${PYBOARD_DEVICE}
 
 [[ "$(pyboard.py -f ls)" == *safemode* ]] || pyboard.py -f mkdir /safemode
 pyboard.py -f cp $DIR/board/boot.py :

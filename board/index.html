@@ -10,7 +10,7 @@
 <body>
     <script>
         // Create a client instance
-        client = new Paho.Client('10.0.0.203', Number('9001'), "clientId");
+        client = new Paho.Client('broker.hivemq.com', Number('8000'), "clientId");
         console.log('Connecting to broker...')
         // set callback handlers
         client.onConnectionLost = onConnectionLost;

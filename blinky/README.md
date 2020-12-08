@@ -25,7 +25,7 @@ up and running in safe-mode.
    `esp32/blinky/mqb` (you still have the window/pane/tab running showing the board's terminal
    output, right?).
 ```
-    $ ./sync-safemode --prefix esp32/test
+    $ ./sync-safemode -s 10.0.0.203 --prefix esp32/mqtest
     Target directory /safemode
       put  missing ./mpy-lib/sntp.py -> /safemode/sntp.py
       ok   main.py
@@ -78,7 +78,7 @@ up and running in safe-mode.
 
 6. Finally it's time to load the blinky app:
 ```
-    $ ./sync --prefix esp32/blinky
+    $ ./sync -s 10.0.0.203 --prefix iDAQ/virac
     Target directory /lib
       mkdir /lib
       put  missing ./mpy-lib/sntp.py -> /lib/sntp.py

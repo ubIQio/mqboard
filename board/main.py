@@ -93,6 +93,7 @@ def main():  # function keeps global namespace clean
                     log.info("  config: [%s]", ", ".join(iter(config)))
                     lvl = config.pop("log", None)
                     if lvl:
+                        log.info("  log level: [%d]", lvl)
                         logging.getLogger(name).setLevel(lvl)
                     fun(MQTT, config)
             except ImportError as e:

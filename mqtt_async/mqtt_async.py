@@ -563,6 +563,8 @@ class MQTTClient:
         if not s.isconnected():
             log.warning("Wifi failed to connect")
             raise OSError(-1, "Wifi failed to connect")
+        else:
+            log.warning("Wifi connected: %s", s.ifconfig())
 
     def _dns_lookup(self):
         new_addr = socket.getaddrinfo(self._c["server"], self._c["port"])
